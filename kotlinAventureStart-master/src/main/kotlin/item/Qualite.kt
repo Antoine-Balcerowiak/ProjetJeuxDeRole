@@ -1,5 +1,5 @@
 package item
 
-class Qualite (val nom:String, val bonusRarete: Int, val couleur:String) {
+class Qualite (val nom:String, val bonusQualite: Int, val couleur:String) {
 
 }

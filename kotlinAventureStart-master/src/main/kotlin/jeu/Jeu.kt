@@ -43,7 +43,79 @@ class Jeu(monstres: List<Personnage>) {
     fun creerPersonnage(): Personnage {
         println("Création votre personnage:")
         // TODO Mission 1.1
-        val hero = Personnage("YYY",150,150,12,8,8,12)
+        print("Saisir le nom du personnage : ")
+        val nom = readln()
+        println("Vous avez 40 points à attribuer a votre personnage (en attaque,defense,endurance et vitesse")
+        var points = 40
+        var attaque = 0
+        var defense = 0
+        var endurance = 0
+        var vitesse = 0
+        var choix : Int
+        var stats = 0
+         do {
+             println("point restant: $points")
+             println("Stat : ")
+             println("1. attaque ($attaque) : ")
+             println("2. defense ($defense) : ")
+             println("3. endurance ($endurance) : ")
+             println("4. vitesse ($vitesse) : ")
+             println("5. terminer ")
+             print("choix : ")
+             choix = readln().toInt()
+
+             if (choix == 1) { // augmentation stat attaque
+                 print("stats attaque : ")
+                 stats= readln().toInt()
+                 while (stats>points) {
+                     println("stat trop élevé")
+                     print("stats attaque : ")
+                     stats= readln().toInt()
+                 }
+                 attaque += stats
+                 points -= stats
+             }
+
+             if (choix == 2) { // augmentation stat defense
+                 print("stats defense : ")
+                 stats= readln().toInt()
+                 while (stats>points) {
+                     println("stat trop élevé")
+                     print("stats defense : ")
+                     stats= readln().toInt()
+                 }
+                 defense += stats
+                 points -= stats
+             }
+
+             if (choix == 3) { // augmentation stat endurance
+                 stats= readln().toInt()
+                 print("stats endurance : ")
+                 while (stats>points) {
+                     println("stat trop élevé")
+                     print("stats endurance : ")
+                     stats= readln().toInt()
+                 }
+                 endurance += stats
+                 points -= stats
+             }
+
+             if (choix == 4) { // augmentation stat vitesse
+                 print("stats vitesse : ")
+                 stats= readln().toInt()
+                 while (stats>points) {
+                     println("stat trop élevé")
+                     print("stats vitesse : ")
+                     stats= readln().toInt()
+                 }
+                 vitesse += stats
+                 points -= stats
+             }
+
+         }while (choix!=5)
+         val pdv=100+(endurance*10)
+
+        val hero = Personnage(nom,pdv,pdv,attaque,defense,endurance,vitesse)
         this.joueur= hero
         return hero
     }

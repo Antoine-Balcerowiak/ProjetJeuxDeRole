@@ -13,13 +13,19 @@ class Combat(
         println("\u001B[34m ---Tour de ${this.jeu.joueur.nom} (pv: ${this.jeu.joueur.pointDeVie}) ---")
 
         //TODO Mission 1.2
-        println("1. Attaquer  2. Passer  3. Inventaire")
+        println("1. Attaquer  2. Passer  3.")
         var action = readln()// Entrer choix d'action
         if(action.toInt() == 1 ){// Si choix d'action est Attaquer
             this.jeu.joueur.attaque(monstre)
             action = "Attaquer"
         }
+
         else if (action.toInt() == 2 ){// Si choix d'action est passer le tour
+            this.jeu.joueur.passeTour()
+            action ="Passe le tour"
+        }
+
+        else if (action.toInt() == 3 ){// Si choix d'action est passer le tour
             this.jeu.joueur.passeTour()
             action ="Passe le tour"
         }

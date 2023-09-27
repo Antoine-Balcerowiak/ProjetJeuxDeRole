@@ -5,18 +5,23 @@ import personnage.Personnage
 class Bombe constructor(
     val nombreDeDes :Int,
     val maxDe :Int,
-    val nom :String,
-    val description :String
-){
+     nom :String,
+     description :String
+):Item(nom,description){
 
 
-    fun utiliser(cible : Personnage){
+    override fun utiliser(cible : Personnage){
+        var protec = 0
         val des = jeu.TirageDes(nombreDeDes , maxDe)
         var degats = des.lance()
-        val protec = cible.armure.calculProtection()
+        if (cible.armure != null) {
+            protec = cible.armure!!.calculProtection()
+        }
         degats -= protec
         if (degats<1) degats = 1
         cible.pointDeVie -= degats
+        println("la $nom inflige $degats dégats a ${cible.nom}")
+
     }
 
 

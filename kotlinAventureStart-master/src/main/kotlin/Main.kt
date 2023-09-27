@@ -94,14 +94,14 @@ fun main(args: Array<String>) {
     val Zoro = Personnage(
         " Roronoa Zoro ",
         pointDeVie = 900,
-        pointDeVieMax = 90,
+        pointDeVieMax = 900,
         attaque = 40,
         defense = 39,
         vitesse = 40,
         endurance = 40,
         arme = enma,
         armure = JsaisPas
- 
+
     )
 
 

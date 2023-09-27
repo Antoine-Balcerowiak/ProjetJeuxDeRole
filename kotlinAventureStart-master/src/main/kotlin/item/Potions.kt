@@ -1,11 +1,11 @@
 package item
 
 class Potions constructor(
-    soin :Int,
+    val soin :Int,
     nom :String,
-    description :String){
+    description :String): Item(nom, description){
 
-    fun utiliser (){
+     fun utiliser (){
 
     }
 }

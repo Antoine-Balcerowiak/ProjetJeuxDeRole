@@ -1,12 +1,12 @@
 package jeu
 
+import item.*
 import personnage.Personnage
-
 
 
 class Jeu(monstres: List<Personnage>) {
     lateinit var joueur: Personnage
-     var combats: MutableList<Combat> = mutableListOf()
+    var combats: MutableList<Combat> = mutableListOf()
     var score: Int = 0
 
     // Corps du constructeur
@@ -14,9 +14,9 @@ class Jeu(monstres: List<Personnage>) {
         // Lancement de la création du personage du joueur
         this.creerPersonnage()
         // Pour chaque monstre dans la liste de monstres
-        for (unMonstre in monstres){
+        for (unMonstre in monstres) {
             // On créer un combat
-            val unCombat= Combat(this,unMonstre)
+            val unCombat = Combat(this, unMonstre)
             combats.add(unCombat)
         }
     }
@@ -51,74 +51,86 @@ class Jeu(monstres: List<Personnage>) {
         var defense = 0
         var endurance = 0
         var vitesse = 0
-        var choix : Int
+        var choix: Int
         var stats = 0
-         do {
-             println("point restant: $points")
-             println("Stat : ")
-             println("1. attaque ($attaque) : ")
-             println("2. defense ($defense) : ")
-             println("3. endurance ($endurance) : ")
-             println("4. vitesse ($vitesse) : ")
-             println("5. terminer ")
-             print("choix : ")
-             choix = readln().toInt()
+        do {
+            println("point restant: $points")
+            println("Stat : ")
+            println("1. attaque ($attaque) : ")
+            println("2. defense ($defense) : ")
+            println("3. endurance ($endurance) : ")
+            println("4. vitesse ($vitesse) : ")
+            println("5. terminer ")
+            print("choix : ")
+            choix = readln().toInt()
 
-             if (choix == 1) { // augmentation stat attaque
-                 print("stats attaque : ")
-                 stats= readln().toInt()
-                 while (stats>points) {
-                     println("stat trop élevé")
-                     print("stats attaque : ")
-                     stats= readln().toInt()
-                 }
-                 attaque += stats
-                 points -= stats
-             }
+            if (choix == 1) { // augmentation stat attaque
+                print("stats attaque : ")
+                stats = readln().toInt()
+                while (stats > points) {
+                    println("stat trop élevé")
+                    print("stats attaque : ")
+                    stats = readln().toInt()
+                }
+                attaque += stats
+                points -= stats
+            }
 
-             if (choix == 2) { // augmentation stat defense
-                 print("stats defense : ")
-                 stats= readln().toInt()
-                 while (stats>points) {
-                     println("stat trop élevé")
-                     print("stats defense : ")
-                     stats= readln().toInt()
-                 }
-                 defense += stats
-                 points -= stats
-             }
+            if (choix == 2) { // augmentation stat defense
+                print("stats defense : ")
+                stats = readln().toInt()
+                while (stats > points) {
+                    println("stat trop élevé")
+                    print("stats defense : ")
+                    stats = readln().toInt()
+                }
+                defense += stats
+                points -= stats
+            }
 
-             if (choix == 3) { // augmentation stat endurance
-                 stats= readln().toInt()
-                 print("stats endurance : ")
-                 while (stats>points) {
-                     println("stat trop élevé")
-                     print("stats endurance : ")
-                     stats= readln().toInt()
-                 }
-                 endurance += stats
-                 points -= stats
-             }
+            if (choix == 3) { // augmentation stat endurance
+                stats = readln().toInt()
+                print("stats endurance : ")
+                while (stats > points) {
+                    println("stat trop élevé")
+                    print("stats endurance : ")
+                    stats = readln().toInt()
+                }
+                endurance += stats
+                points -= stats
+            }
 
-             if (choix == 4) { // augmentation stat vitesse
-                 print("stats vitesse : ")
-                 stats= readln().toInt()
-                 while (stats>points) {
-                     println("stat trop élevé")
-                     print("stats vitesse : ")
-                     stats= readln().toInt()
-                 }
-                 vitesse += stats
-                 points -= stats
-             }
+            if (choix == 4) { // augmentation stat vitesse
+                print("stats vitesse : ")
+                stats = readln().toInt()
+                while (stats > points) {
+                    println("stat trop élevé")
+                    print("stats vitesse : ")
+                    stats = readln().toInt()
+                }
+                vitesse += stats
+                points -= stats
+            }
 
-         }while (choix!=5)
-         val pdv=100+(endurance*10)
+        } while (choix != 5)
+        val pdv = 100 + (endurance * 10)
+        val qualiteCommun = Qualite("commun", 0, "\u001B[32m")
+        val qualiteRare = Qualite("rare", 1, couleur = "\u001B[34m")
+        val qualiteEpic = Qualite("epic", 2, "\u001B[35m")
+        val qualiteLegendaire = Qualite("legendaire", 3, "\u001B[33m")
 
-        val hero = Personnage(nom,pdv,pdv,attaque,defense,endurance,vitesse)
-        this.joueur= hero
+        val hero = Personnage(nom, pdv, pdv, attaque, defense, endurance, vitesse, Armures(
+            "jTeProtege",
+            "meme pas mal",
+            TypeArmure("cailloux", 132),
+            qualiteLegendaire
+        ), Armes(
+            name = "l'Epee d'ophile",
+            description = "l'epee preféré de tk , norman et amaru",
+            type = TypeArme(78, 5000000, 45, 1),
+            qualiteLegendaire,
+        ))
+        this.joueur = hero
         return hero
     }
-    
-
 }

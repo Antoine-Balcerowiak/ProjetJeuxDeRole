@@ -13,7 +13,7 @@ val qualiteLegendaire = Qualite("legendaire", 3, "\u001B[33m")
 val shhhhhhhuuuuut = Armes(
     "shhhhhhhuuuuut",
     "tire des balles silencieuses",
-    TypeArme(3, 80, 54, 2),
+    TypeArme(3, 50, 2, 2),
     qualiteLegendaire,
 )
 
@@ -28,7 +28,7 @@ val enma = Armes(
     "Enma",
     description = "Enma est un Meito ayant appartenu à Kozuki Oden, qui l'utilisait de paire avec un autre Meito, Ame no Habakiri. Kozuki Hiyori l'a hérité de son père et c'est le katana qui a donné sa seule cicatrice à Kaido,[2] d'abord avec Oden puis avec Zoro.\n" +
             "L'épée a été forgée par Shimotsuki Kozaburo.[3] Hiyori l'a donné à Zoro en échange du Shusui.[2]",
-    TypeArme(1,10,10,3),
+    TypeArme(1,100,13,3),
     qualiteLegendaire,
 )
 
@@ -58,24 +58,32 @@ val JsaisPas = Armures(
 )
 fun main(args: Array<String>) {
 
-
-
-
-
-
-
-
     //Instantiation des monstres
     val gobelin = Personnage(
         "XXX le gobelin",
         pointDeVie = 20,
         pointDeVieMax = 20,
         attaque = 5,
-        defense = 4,
+        defense = 0,
         vitesse = 11,
         endurance = 6,
         arme = shhhhhhhuuuuut,
-        armure = jTeProtege
+        armure = null,
+        inventaire = mutableListOf(
+            Armes(
+                "lance",
+                description = "fait mal",
+                TypeArme(1,10,10,3),
+                Qualite("legendaire", 3, "\u001B[33m"),),
+
+            Armures(
+                "JeReflechis",
+                "une armure indescise",
+                TypeArmure("CPeutEtreMoi", 200),
+                Qualite("legendaire",3,"\u001B[33m")),
+            Potions(30, "petite potion" , "soigne 30hp"),
+            Potions(70, "moyenne potion" , "soigne 70hp")
+        )
 
     )
 
@@ -93,8 +101,8 @@ fun main(args: Array<String>) {
 
     val Zoro = Personnage(
         " Roronoa Zoro ",
-        pointDeVie = 900,
-        pointDeVieMax = 900,
+        pointDeVie = 9000,
+        pointDeVieMax = 9000,
         attaque = 40,
         defense = 39,
         vitesse = 40,
@@ -120,12 +128,7 @@ fun main(args: Array<String>) {
 
 
 
-    val molo = item.Bombe(
-        nombreDeDes =3,
-        maxDe =8,
-        nom = "molo",
-        description = "sa brule aie"
-    )
+
 
     // TODO Intermission 1 Ajouter d'autres monstres
     //On ajoute les monstres a la liste de monstres du jeu

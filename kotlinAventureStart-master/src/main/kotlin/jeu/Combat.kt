@@ -13,24 +13,38 @@ class Combat(
         println("\u001B[34m ---Tour de ${this.jeu.joueur.nom} (pv: ${this.jeu.joueur.pointDeVie}) ---")
 
         //TODO Mission 1.2
-        println("1. Attaquer  2. Passer  3.")
-        var action = readln()// Entrer choix d'action
-        if(action.toInt() == 1 ){// Si choix d'action est Attaquer
-            this.jeu.joueur.attaque(monstre)
-            action = "Attaquer"
+        var actionValide=false
+        while (!actionValide) {
+            println("1. Attaquer  2. Passer  3. Inventaire  4. Stats")
+            var action = readln()// Entrer choix d'action
+            if (action.toInt() == 1) {// Si choix d'action est Attaquer
+                this.jeu.joueur.attaque(monstre)
+                action = "Attaquer"
+                actionValide=true
+            }
+
+            else if (action.toInt() == 2) {// Si choix d'action est passer le tour
+                this.jeu.joueur.passeTour()
+                actionValide=true
+                action = "Passe le tour"
+            }
+
+            else if (action.toInt() == 3) {// Si choix d'action est passer le tour
+                val inventaire = this.jeu.joueur.ouvrirInventaire(monstre)
+                action = "Inventaire de ${this.jeu.joueur.nom}"
+                if (inventaire)
+                    actionValide = true
+            }
+
+            else if (action.toInt() == 4) {// Si choix d'action est passer le tour
+                this.jeu.joueur.stats()
+                action = "Stats et equipements du personnage"
+
+            }
+            println(action)
         }
 
-        else if (action.toInt() == 2 ){// Si choix d'action est passer le tour
-            this.jeu.joueur.passeTour()
-            action ="Passe le tour"
-        }
 
-        else if (action.toInt() == 3 ){// Si choix d'action est passer le tour
-            this.jeu.joueur.passeTour()
-            action ="Passe le tour"
-        }
-
-        println(action)
         println("\u001b[0m")
     }
 
@@ -46,6 +60,18 @@ class Combat(
             this.monstre.passeTour()
         }
         println("\u001b[0m")
+        for (elt in monstre.inventaire){
+            if (elt is item.Potions)
+                if (monstre.pointDeVie < monstre.pointDeVieMax/2){
+                    val d = TirageDes(1,1)
+                    val tirage = d.lance()
+                    if (tirage == 1) {
+                        elt.utiliser(monstre)
+                        monstre.inventaire.remove(elt)
+                    }
+                }
+
+        }
     }
 
     // Méthode pour exécuter le combat complet
@@ -76,6 +102,7 @@ class Combat(
             this.executerCombat()
         } else {
             println("BRAVO ! ${monstre.nom} a été vaincu !")
+            this.jeu.joueur.loot(monstre)
         }
     }
 }

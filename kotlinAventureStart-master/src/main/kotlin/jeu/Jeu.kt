@@ -119,17 +119,7 @@ class Jeu(monstres: List<Personnage>) {
         val qualiteEpic = Qualite("epic", 2, "\u001B[35m")
         val qualiteLegendaire = Qualite("legendaire", 3, "\u001B[33m")
 
-        val hero = Personnage(nom, pdv, pdv, attaque, defense, endurance, vitesse, Armures(
-            "jTeProtege",
-            "meme pas mal",
-            TypeArmure("cailloux", 132),
-            qualiteLegendaire
-        ), Armes(
-            name = "l'Epee d'ophile",
-            description = "l'epee preféré de tk , norman et amaru",
-            type = TypeArme(78, 5000000, 45, 1),
-            qualiteLegendaire,
-        ))
+        val hero = Personnage(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null)
         this.joueur = hero
         return hero
     }

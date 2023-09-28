@@ -29,11 +29,10 @@ class Combat(
                 action = "Passe le tour"
             }
 
-            else if (action.toInt() == 3) {// Si choix d'action est passer le tour
-                val inventaire = this.jeu.joueur.ouvrirInventaire(monstre)
+            else if (action.toInt() == 3) {// Si choix d'action est ouvrir l'inventaire
+                this.jeu.joueur.ouvrirInventaire(monstre)
                 action = "Inventaire de ${this.jeu.joueur.nom}"
-                if (inventaire)
-                    actionValide = true
+                actionValide = true
             }
 
             else if (action.toInt() == 4) {// Si choix d'action est passer le tour

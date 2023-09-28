@@ -7,9 +7,15 @@ class Armures(
     description: String,
     val type: TypeArmure,
     val qualite: Qualite
-):Item(nom,description) {
+    ):Item(nom,description) {
+
     fun calculProtection(): Int {
         return this.type.bonusType + this.qualite.bonusQualite
+    }
+
+    override fun utiliser(cible:Personnage) {
+        cible.equipe(this)
+
     }
 
 

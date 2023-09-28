@@ -95,33 +95,24 @@ class Personnage(
 
     }
 
-    fun equipeArme( arme:Item) {
+    fun equipe(arme: Armes) {
         if (arme in this.inventaire && arme is Armes)
             this.arme = arme
         println("${this.nom} equipe ${this.arme!!.nom}")
     }
 
-    fun equipeArmure( armure:Item) {
+    fun equipe(armure:Armures) {
         if (armure in this.inventaire && armure is Armures)
             this.armure = armure
         println("${this.nom} equipe ${this.armure!!.nom}")
     }
 
-    fun selctionInventaire (monstre:Personnage) :Boolean {
+    fun selctionInventaire (monstre:Personnage) {
         println("Selectionner un item : ")
         val selection = readln().toInt()
         val item = this.inventaire[selection]
         var actionValide = false
-        
-        if (item is Armes) {
-            this.arme = item
-        }
-
-        else if (item is Armures) {
-            this.armure = item
-        }
-
-        else if (item is Bombe) {
+        if (item is Bombe) {
             var cible = monstre
             item.utiliser(cible)
             this.inventaire.remove(item)
@@ -134,16 +125,26 @@ class Personnage(
             this.inventaire.remove(item)
             actionValide = true
         }
-        return actionValide
-    }
 
-    fun ouvrirInventaire(monstre: Personnage,): Boolean {
-        for (i in 0..this.inventaire.size - 1) {
-            println("$i. ${this.inventaire[i]}")
+            // Bouton retour!!!!!!!!!!!!
+
+        /*else if (selection == 0) {
+
+        }
+    */
+        else{
+             item.utiliser(this)
         }
 
 
-        return selctionInventaire(monstre)
+    }
+
+    fun ouvrirInventaire(monstre: Personnage,) {
+        for (i in 1..this.inventaire.size - 1) {
+            println("$i. ${this.inventaire[i]}")
+        }
+        println("0. Quitter !!!")
+         selctionInventaire(monstre)
     }
 
     fun avoirPotion():Boolean {

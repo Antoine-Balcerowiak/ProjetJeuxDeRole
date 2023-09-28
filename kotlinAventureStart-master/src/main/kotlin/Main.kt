@@ -101,27 +101,25 @@ fun main(args: Array<String>) {
 
     val Zoro = Personnage(
         " Roronoa Zoro ",
-        pointDeVie = 9000,
-        pointDeVieMax = 9000,
-        attaque = 40,
-        defense = 39,
-        vitesse = 40,
-        endurance = 40,
+        pointDeVie = 1,
+        pointDeVieMax = 1,
+        attaque = 1,
+        defense = 1,
+        vitesse = 1,
+        endurance = 1,
         arme = enma,
         armure = JsaisPas
 
     )
 
-
-
     val destructor = Personnage(
-        "Le père vert",
+        "le pere vert",
         pointDeVie = 99999,
         pointDeVieMax = 999999,
-        attaque = 99999,
+        attaque = 9999999,
         defense = 99999,
-        vitesse = 99999,
-        endurance = 99999,
+        vitesse = 999999999,
+        endurance = 0,
         arme = epee_dophile,
         armure= antiPolice,
         )
@@ -132,7 +130,7 @@ fun main(args: Array<String>) {
 
     // TODO Intermission 1 Ajouter d'autres monstres
     //On ajoute les monstres a la liste de monstres du jeu
-    val jeu = Jeu(listOf( gobelin, cyclope, Zoro, destructor))
+    val jeu = Jeu(listOf( destructor,Zoro, cyclope,gobelin))
     //Lancement du jeu
     jeu.lancerCombat()
 }

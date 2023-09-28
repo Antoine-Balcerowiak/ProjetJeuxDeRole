@@ -25,12 +25,11 @@ class Armes (
         return degats
     }
 
-    /*override fun utiliser(cible: Personnage){
-        cible.equipeArme(cible.selctionInventaire())
-        cible.equipeArmure(cible.selctionInventaire())
+    override fun utiliser(cible: Personnage){
+        cible.equipe(this)
     }
 
-     */
+
 
 }
 

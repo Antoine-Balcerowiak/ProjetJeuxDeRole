@@ -1,6 +1,8 @@
 import item.*
 import jeu.Jeu
+import jeu.TirageDes
 import personnage.Personnage
+import personnage.Sort
 
 //instanciation des qualités des objets
 val qualiteCommun = Qualite("commun", 0, "\u001B[32m")
@@ -32,6 +34,13 @@ val enma = Armes(
     qualiteLegendaire,
 )
 
+val ameNoHabakiri = Armes(
+    "天羽々斬",
+    description = "Meito ayant appartenu à Kozuki Oden, qui l'utilisait avec un autre Meito, Enma.",
+    TypeArme(1,110,15,2),
+    qualiteLegendaire
+)
+
 
 
 // Armures
@@ -56,6 +65,24 @@ val JsaisPas = Armures(
     TypeArmure("CPeutEtreMoi", 200),
     qualiteLegendaire
 )
+
+// sorts
+
+val projectionAcide = Sort ( "Sort de projection acide") { caster, cible ->
+    run {
+        val des = TirageDes(1, 100)
+        var degat = des.lance()
+        degat = maxOf(1, degat - cible.calculeDefense())
+
+        cible.pointDeVie -= degat
+
+        println("Le jet d'acide inflige $degat à ${cible.nom}")
+    }
+}
+
+
+
+
 fun main(args: Array<String>) {
 
     //Instantiation des monstres
@@ -70,19 +97,13 @@ fun main(args: Array<String>) {
         arme = shhhhhhhuuuuut,
         armure = null,
         inventaire = mutableListOf(
-            Armes(
-                "lance",
-                description = "fait mal",
-                TypeArme(1,10,10,3),
-                Qualite("legendaire", 3, "\u001B[33m"),),
 
-            Armures(
-                "JeReflechis",
-                "une armure indescise",
-                TypeArmure("CPeutEtreMoi", 200),
-                Qualite("legendaire",3,"\u001B[33m")),
-            Potions(30, "petite potion" , "soigne 30hp"),
-            Potions(70, "moyenne potion" , "soigne 70hp")
+            Armes(
+                "shhhhhhhuuuuut",
+        "tire des balles silencieuses",
+                TypeArme(3, 50, 2, 2),
+                qualiteLegendaire,
+                )
         )
 
     )
@@ -100,13 +121,13 @@ fun main(args: Array<String>) {
     )
 
     val Zoro = Personnage(
-        " Roronoa Zoro ",
-        pointDeVie = 1,
-        pointDeVieMax = 1,
-        attaque = 1,
-        defense = 1,
-        vitesse = 1,
-        endurance = 1,
+        " Roronoa Zoro le nul",
+        pointDeVie = 100000,
+        pointDeVieMax = 100000,
+        attaque = 100000,
+        defense = 100000,
+        vitesse = 100000,
+        endurance = 100000,
         arme = enma,
         armure = JsaisPas
 
@@ -130,7 +151,7 @@ fun main(args: Array<String>) {
 
     // TODO Intermission 1 Ajouter d'autres monstres
     //On ajoute les monstres a la liste de monstres du jeu
-    val jeu = Jeu(listOf( destructor,Zoro, cyclope,gobelin))
+    val jeu = Jeu(listOf( gobelin,destructor,Zoro, cyclope,gobelin))
     //Lancement du jeu
     jeu.lancerCombat()
 }

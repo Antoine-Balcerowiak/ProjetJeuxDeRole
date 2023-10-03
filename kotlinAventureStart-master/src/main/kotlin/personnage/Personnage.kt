@@ -3,7 +3,7 @@ package personnage
 import item.*
 import jeu.TirageDes
 
-class Personnage(
+open class Personnage(
     val nom: String,
     var pointDeVie:Int,
     val pointDeVieMax: Int,
@@ -14,6 +14,7 @@ class Personnage(
     var armure : Armures?,
     var arme : Armes?,
     //val inventaire: MutableList<Item> = mutableListOf<Item>()
+
     val inventaire: MutableList<Item> = mutableListOf<Item>(
         Armes(
             "Enma",
@@ -70,7 +71,7 @@ class Personnage(
      }
 
      // Méthode pour attaquer un adversaire
-     fun attaque(adversaire: Personnage) {
+     open fun attaque(adversaire: Personnage) {
         //TODO Mission 4.1
        if (arme != null ){
            val degats= this.arme!!.calculDegats() + this.attaque / 2
@@ -82,6 +83,7 @@ class Personnage(
            adversaire.pointDeVie-=degats
            println("$nom attaque ${adversaire.nom} avec une attaque de base et inflige $degats points de dégâts.")
        }
+
     }
 
      fun passeTour() {
@@ -92,32 +94,40 @@ class Personnage(
         println("arme : ${this.arme}")
         println("armure : ${this.armure}")
         println("PV : ${this.pointDeVie}")
+        if (this is Guerrier)
+            println("arme secondaire : ${this.armeSecondaire}")
 
     }
 
-    fun equipe(arme: Armes) {
+    open fun equipe(arme: Armes) {
         if (arme in this.inventaire && arme is Armes)
             this.arme = arme
         println("${this.nom} equipe ${this.arme!!.nom}")
     }
 
-    fun equipe(armure:Armures) {
+    open fun equipe(armure:Armures) {
         if (armure in this.inventaire && armure is Armures)
             this.armure = armure
         println("${this.nom} equipe ${this.armure!!.nom}")
     }
 
-    fun selctionInventaire (monstre:Personnage) {
+    fun selctionInventaire (monstre:Personnage):Boolean {
         println("Selectionner un item : ")
-        val selection = readln().toInt()
-        val item = this.inventaire[selection]
+        val selection = readln()
+        if(selection=="0"){
+            return  false;
+        }
+        val indexItem=selection.toInt()
+        val item = this.inventaire[indexItem]
         var actionValide = false
+
+
+
         if (item is Bombe) {
             var cible = monstre
             item.utiliser(cible)
             this.inventaire.remove(item)
             actionValide = true
-
         }
         else if (item is Potions) {
             val cible = this
@@ -125,26 +135,27 @@ class Personnage(
             this.inventaire.remove(item)
             actionValide = true
         }
-
-            // Bouton retour!!!!!!!!!!!!
-
-        /*else if (selection == 0) {
-
+        
+        if (this is Guerrier) {
+            if (item is Armes) {
+                this.equipe(item)
+            }
         }
-    */
-        else{
-             item.utiliser(this)
+        else {
+            item.utiliser(this)
         }
+        return actionValide;
 
 
     }
 
-    fun ouvrirInventaire(monstre: Personnage,) {
+    fun ouvrirInventaire(monstre: Personnage,):Boolean {
+        println("Inventaire de ${this.nom}")
         for (i in 1..this.inventaire.size - 1) {
             println("$i. ${this.inventaire[i]}")
         }
         println("0. Quitter !!!")
-         selctionInventaire(monstre)
+        return selctionInventaire(monstre)
     }
 
     fun avoirPotion():Boolean {
@@ -180,15 +191,13 @@ class Personnage(
     }
 
     fun boirePotion(){
-        if (avoirPotion())
-        {
+        if (avoirPotion()) {
             for (elt in inventaire){
                 if (elt is item.Potions){
                     pointDeVie += elt.soin
                     if (pointDeVie > pointDeVieMax) pointDeVie=pointDeVieMax
                 }
             }
-
         }
     }
 
@@ -197,9 +206,9 @@ class Personnage(
 
 
 
-    /*override fun toString(): String {
+    override fun toString(): String {
         return "$nom (PV: $pointDeVie/$pointDeVieMax, Attaque: $attaque, Défense: $defense, Endurance: $endurance, Vitesse: $vitesse, arme: $arme, armure: $armure)"
-    }*/
+    }
 
 
 }

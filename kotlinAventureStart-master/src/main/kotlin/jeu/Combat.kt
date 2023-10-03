@@ -1,6 +1,9 @@
 package jeu
 
+import personnage.Guerrier
 import personnage.Personnage
+import personnage.Voleur
+import personnage.Mage
 
 class Combat(
     val jeu :Jeu,
@@ -15,7 +18,15 @@ class Combat(
         //TODO Mission 1.2
         var actionValide=false
         while (!actionValide) {
-            println("1. Attaquer  2. Passer  3. Inventaire  4. Stats")
+            if (this.jeu.joueur is Voleur) {
+                println("0. Voler 1. Attaquer  2. Passer  3. Inventaire  4. Stats")
+            }
+            else if (this.jeu.joueur is Mage) {
+                println("0. Lancer Sort  1. Attaquer  2. Passer  3. Inventaire  4. Stats")
+            }
+            else
+                println("1. Attaquer  2. Passer  3. Inventaire  4. Stats")
+
             var action = readln()// Entrer choix d'action
             if (action.toInt() == 1) {// Si choix d'action est Attaquer
                 this.jeu.joueur.attaque(monstre)
@@ -30,16 +41,23 @@ class Combat(
             }
 
             else if (action.toInt() == 3) {// Si choix d'action est ouvrir l'inventaire
-                this.jeu.joueur.ouvrirInventaire(monstre)
-                action = "Inventaire de ${this.jeu.joueur.nom}"
-                actionValide = true
+                actionValide = this.jeu.joueur.ouvrirInventaire(monstre)
+                action = ""
             }
 
             else if (action.toInt() == 4) {// Si choix d'action est passer le tour
                 this.jeu.joueur.stats()
                 action = "Stats et equipements du personnage"
-
             }
+            else if (this.jeu.joueur is Voleur && action.toInt() == 0) {
+                val valide = (this.jeu.joueur as Voleur).volerItem(monstre)
+                actionValide = valide
+            }
+            else if (this.jeu.joueur is Mage && action.toInt() == 0) {
+                (this.jeu.joueur as Mage).choisirEtLancerSort(monstre)
+                actionValide = true
+            }
+
             println(action)
         }
 
@@ -62,7 +80,7 @@ class Combat(
         for (elt in monstre.inventaire){
             if (elt is item.Potions)
                 if (monstre.pointDeVie < monstre.pointDeVieMax/2){
-                    val d = TirageDes(1,1)
+                    val d = TirageDes(1,10)
                     val tirage = d.lance()
                     if (tirage == 1) {
                         elt.utiliser(monstre)

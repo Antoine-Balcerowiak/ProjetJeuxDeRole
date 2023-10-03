@@ -1,7 +1,11 @@
 package jeu
 
 import item.*
+import personnage.Guerrier
+import personnage.Mage
 import personnage.Personnage
+import personnage.Voleur
+import projectionAcide
 
 
 class Jeu(monstres: List<Personnage>) {
@@ -119,7 +123,23 @@ class Jeu(monstres: List<Personnage>) {
         val qualiteEpic = Qualite("epic", 2, "\u001B[35m")
         val qualiteLegendaire = Qualite("legendaire", 3, "\u001B[33m")
 
-        val hero = Personnage(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null)
+        println("Choix de la classe: ")
+        println("1. Guerrier")
+        println()
+        println("3. Mage")
+        val classe = readln().toInt()
+
+        var hero=Personnage( nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null)
+        if (classe == 1)
+             hero = Guerrier(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null, armeSecondaire = null)
+
+        else if (classe == 2)
+             hero = Voleur(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null)
+
+        else if (classe == 3)
+             hero = Mage(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null, grimoire = mutableListOf(projectionAcide))
+
+
         this.joueur = hero
         return hero
     }

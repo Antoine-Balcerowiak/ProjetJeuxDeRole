@@ -125,7 +125,7 @@ class Jeu(monstres: List<Personnage>) {
 
         println("Choix de la classe: ")
         println("1. Guerrier")
-        println()
+        println("2. Voleur")
         println("3. Mage")
         val classe = readln().toInt()
 

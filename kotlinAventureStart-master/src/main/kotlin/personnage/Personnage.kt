@@ -72,17 +72,20 @@ open class Personnage(
 
      // Méthode pour attaquer un adversaire
      open fun attaque(adversaire: Personnage) {
-        //TODO Mission 4.1
-       if (arme != null ){
-           val degats= this.arme!!.calculDegats() + this.attaque / 2
-           adversaire.pointDeVie-=degats
-           println("$nom attaque ${adversaire.nom} avec une attaque de base et inflige $degats points de dégâts.")
-       }
+         //TODO Mission 4.1
+         if (arme != null) {
+             val degats = this.arme!!.calculDegats() + this.attaque / 2
+             adversaire.pointDeVie -= degats
+             println("$nom attaque ${adversaire.nom} avec une attaque de base et inflige $degats points de dégâts.")
+         }
          else {
-           val degats= this.attaque/2
-           adversaire.pointDeVie-=degats
-           println("$nom attaque ${adversaire.nom} avec une attaque de base et inflige $degats points de dégâts.")
-       }
+             var degats = this.attaque / 2
+             if (degats<=0)
+                 degats = 1
+             adversaire.pointDeVie -= degats
+             println("$nom attaque ${adversaire.nom} avec une attaque de base et inflige $degats points de dégâts.")
+         }
+
 
     }
 
@@ -96,6 +99,13 @@ open class Personnage(
         println("PV : ${this.pointDeVie}")
         if (this is Guerrier)
             println("arme secondaire : ${this.armeSecondaire}")
+
+    }
+    fun statsMonstre() {
+        println("arme : ${this.arme}")
+        println("armure : ${this.armure}")
+        println("PV : ${this.pointDeVie}")
+        println("Inventaire : ${this.inventaire}")
 
     }
 

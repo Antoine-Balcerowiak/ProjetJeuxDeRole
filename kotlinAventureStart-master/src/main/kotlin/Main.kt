@@ -97,7 +97,6 @@ fun main(args: Array<String>) {
         arme = shhhhhhhuuuuut,
         armure = null,
         inventaire = mutableListOf(
-
             Armes(
                 "shhhhhhhuuuuut",
         "tire des balles silencieuses",

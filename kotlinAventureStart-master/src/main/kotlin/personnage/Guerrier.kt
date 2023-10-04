@@ -32,10 +32,10 @@ class Guerrier (
           var choix2 = readln()
 
           if (choix2.toInt() == 1){
-               this.arme?.utiliser(this)//Equiper sur arme principale
+               this.arme = arme//Equiper sur arme principale
           }
           else if (choix2.toInt() == 2){
-               this.armeSecondaire?.utiliser(this)//Equiper sur arme secondaire
+               this.armeSecondaire = arme//Equiper sur arme secondaire
           }
      }
 

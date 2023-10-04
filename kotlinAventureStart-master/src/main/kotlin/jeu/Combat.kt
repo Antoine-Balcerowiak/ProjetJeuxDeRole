@@ -49,6 +49,12 @@ class Combat(
                 this.jeu.joueur.stats()
                 action = "Stats et equipements du personnage"
             }
+
+            else if (action.toInt() == 5) {// Si choix d'action est passer le tour
+                this.monstre.statsMonstre()
+                action = "Stats et equipements du personnage"
+            }
+
             else if (this.jeu.joueur is Voleur && action.toInt() == 0) {
                 val valide = (this.jeu.joueur as Voleur).volerItem(monstre)
                 actionValide = valide

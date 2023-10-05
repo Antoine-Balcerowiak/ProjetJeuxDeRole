@@ -24,7 +24,7 @@ class Mage (
         var n = 0
         for (elt in grimoire)
         {
-            println("$n => ${elt.nom} effet : ${elt.effet}")
+            println("$n => ${elt.nom}")
             n++
         }
 

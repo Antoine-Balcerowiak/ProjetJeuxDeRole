@@ -16,7 +16,7 @@ class Armes (
         var desCrit = TirageDes(1,20)
         var degats = 0
         if (desCrit.lance()  >= this.type.activationCritique){ // Si le résultat du lancer est >= activationCritique du type d'arme alors le coup est critique
-            degats = desDegat.lance()*this.type.multiplicateirCritique+this.qualite.bonusQualite // Dégats correspond au lanceur * multiplicateur critique de l'arme
+            degats = desDegat.lance()*this.type.multiplicateurCritique+this.qualite.bonusQualite // Dégats correspond au lanceur * multiplicateur critique de l'arme
             println("Coup Critique")
         }
         else {

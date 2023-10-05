@@ -68,6 +68,8 @@ val JsaisPas = Armures(
 
 // sorts
 
+
+
 val projectionAcide = Sort ( "Sort de projection acide") { caster, cible ->
     run {
         val des = TirageDes(1, 100)
@@ -78,6 +80,113 @@ val projectionAcide = Sort ( "Sort de projection acide") { caster, cible ->
 
         println("Le jet d'acide inflige $degat à ${cible.nom}")
     }
+}
+
+val kamehameha = Sort ( "kamehameha") { caster, cible ->
+    run {
+        val des = TirageDes(5, 500)
+        var degat = des.lance()
+        degat = maxOf(1, degat - cible.calculeDefense())
+
+        cible.pointDeVie -= degat
+
+        println("KAMEHAEHAAAAAAAAAAAAAAAAAAAAAA inflige $degat degats à ${cible.nom}")
+    }
+}
+
+ var compteur = 0
+
+val tornadeDeFeu = Sort ( "Tornade de feu") { caster, cible ->
+    run {
+        if (compteur<caster.attaque/2) {
+            val des = TirageDes(5, 800)
+            var degat = des.lance()
+            degat = maxOf(1, degat - cible.calculeDefense())
+
+            cible.pointDeVie -= degat
+
+            println("La tornade de feu inflige $degat degats à ${cible.nom}")
+        }
+        else println("plus asser de Puissance pour faire la tornade de feu")
+    }
+}
+
+val Soin = Sort ( "Soin",) { caster, cible ->
+    run {
+            val des = TirageDes(1, 6)
+            var soin = des.lance()
+
+
+            cible.pointDeVie += soin + cible.attaque/2
+        if (cible.pointDeVie>cible.pointDeVieMax) cible.pointDeVie=cible.pointDeVieMax
+
+            println("Les pv de ${cible.nom} sont de ${cible.pointDeVie}/${cible.pointDeVieMax} ")
+        }
+
+    }
+
+
+val invocationArme = Sort ("Invocation d'arme"){ caster, cible ->
+    run {
+    var de = TirageDes(1,20)
+    var resultat = de.lance()
+    var qualite : Qualite
+    var arme : Armes
+    if (resultat<5){
+        qualite = qualiteCommun
+        arme = Armes("Curdent","Inutile pas de chance TOI", TypeArme(1,10,2,9),qualite)
+    }
+    else if (resultat<10){
+        qualite = qualiteRare
+        arme = Armes("Epee en bois","Arme vraiiiiiment nuuul", TypeArme(1,20,3,7),qualite)
+
+    }
+    else if (resultat<15){
+        qualite = qualiteEpic
+        arme = Armes("Eden","L'épee d'Eden", TypeArme(3,15,5,5),qualite)
+
+    }
+    else {
+        qualite = qualiteLegendaire
+        arme = Armes("Yoru","Un sabre qui fait partie des Sabres les plus puissants au monde.", TypeArme(5,25,10,3),qualite)
+    }
+    cible.inventaire.add(arme)
+    if (arme in cible.inventaire) {
+        println("${arme.nom}  est ajoutée à l'inventaire")
+    }
+
+}
+}
+
+val invocationArmure = Sort ("invocation d'armure bb "){caster , cible ->
+    run {
+    var de = TirageDes(1,20)
+    var resultat = de.lance()
+    var qualite : Qualite
+    var armure : Armures
+    if (resultat<5){
+        qualite = qualiteCommun
+        armure = Armures("tout nue","t'es a poil", TypeArmure("nue",2),qualite)
+    }
+    else if (resultat<10){
+        qualite = qualiteRare
+        armure = Armures("costard cravate","pro le boug", TypeArmure("costard",5),qualite)
+    }
+    else if (resultat<15){
+        qualite = qualiteEpic
+        armure = Armures("ensemble nike","le flow ", TypeArmure("nike",8),qualite)
+    }
+    else {
+        qualite = qualiteLegendaire
+        armure = Armures("rudy gobert","meilleur defenseur", TypeArmure("gobzilla",15),qualite)
+    }
+    cible.inventaire.add(armure)
+
+    if (armure in cible.inventaire) {
+        println("${armure.nom} est ajoutée à l'inventaire")
+    }
+
+}
 }
 
 

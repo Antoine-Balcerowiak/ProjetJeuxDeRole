@@ -6,7 +6,7 @@ import personnage.Voleur
 import personnage.Mage
 
 class Combat(
-    val jeu :Jeu,
+    val jeu: Jeu,
     val monstre: Personnage
 ) {
     var nombreTours: Int = 1
@@ -16,77 +16,74 @@ class Combat(
         println("\u001B[34m ---Tour de ${this.jeu.joueur.nom} (pv: ${this.jeu.joueur.pointDeVie}) ---")
 
         //TODO Mission 1.2
-        var actionValide=false
+        var actionValide = false
         while (!actionValide) {
             if (this.jeu.joueur is Voleur) {
                 println("0. Voler 1. Attaquer  2. Passer  3. Inventaire  4. Stats")
-            }
-            else if (this.jeu.joueur is Mage) {
+            } else if (this.jeu.joueur is Mage) {
                 println("0. Lancer Sort  1. Attaquer  2. Passer  3. Inventaire  4. Stats")
-            }
-            else
+            } else
                 println("1. Attaquer  2. Passer  3. Inventaire  4. Stats")
 
             var action = readln()// Entrer choix d'action
-            if (action.toInt() == 1) {// Si choix d'action est Attaquer
+
+            while (action !in ("0".."5")) {
+                if (this.jeu.joueur is Voleur) {
+                    println("0. Voler 1. Attaquer  2. Passer  3. Inventaire  4. Stats")
+                } else if (this.jeu.joueur is Mage) {
+                    println("0. Lancer Sort  1. Attaquer  2. Passer  3. Inventaire  4. Stats")
+                } else
+                    println("1. Attaquer  2. Passer  3. Inventaire  4. Stats")
+
+                action = readln()
+            }
+
+            if (action == "1") {// Si choix d'action est Attaquer
                 this.jeu.joueur.attaque(monstre)
                 action = "Attaquer"
-                actionValide=true
-            }
-
-            else if (action.toInt() == 2) {// Si choix d'action est passer le tour
+                actionValide = true
+            } else if (action == "2") {// Si choix d'action est passer le tour
                 this.jeu.joueur.passeTour()
-                actionValide=true
+                actionValide = true
                 action = "Passe le tour"
-            }
-
-            else if (action.toInt() == 3) {// Si choix d'action est ouvrir l'inventaire
+            } else if (action == "3") {// Si choix d'action est ouvrir l'inventaire
                 actionValide = this.jeu.joueur.ouvrirInventaire(monstre)
                 action = ""
-            }
-
-            else if (action.toInt() == 4) {// Si choix d'action est passer le tour
+            } else if (action == "4") {// Si choix d'action est passer le tour
                 this.jeu.joueur.stats()
                 action = "Stats et equipements du personnage"
-            }
-
-            else if (action.toInt() == 5) {// Si choix d'action est passer le tour
+            } else if (action == "5") {// Si choix d'action est passer le tour
                 this.monstre.statsMonstre()
                 action = "Stats et equipements du personnage"
-            }
-
-            else if (this.jeu.joueur is Voleur && action.toInt() == 0) {
+            } else if (this.jeu.joueur is Voleur && action == "0") {
                 val valide = (this.jeu.joueur as Voleur).volerItem(monstre)
                 actionValide = valide
-            }
-            else if (this.jeu.joueur is Mage && action.toInt() == 0) {
+            } else if (this.jeu.joueur is Mage && action == "0") {
                 (this.jeu.joueur as Mage).choisirEtLancerSort(monstre)
                 actionValide = true
             }
 
             println(action)
+            println("\u001b[0m")
         }
-
-
-        println("\u001b[0m")
     }
+
 
     // Méthode pour simuler un tour de combat du monstre
     fun tourDeMonstre() {
-        var des = TirageDes(1,100) // Tire un nombre aléatoire entre 1 et 100
+        var des = TirageDes(1, 100) // Tire un nombre aléatoire entre 1 et 100
         println("\u001B[31m---Tour de ${monstre.nom} (pv: ${monstre.pointDeVie}) ---") // affiche le tour du monstre
         //TODO Mission 1.3
         if (des.lance() <= 70) { // Si le nombre tiré est inférieur à 70 le monstre attaque
             this.monstre.attaque(this.jeu.joueur)
-        }
-        else if (des.lance() > 70) { // Si le nombre tiré est superieur à 70 le monstre passe son tour
+        } else if (des.lance() > 70) { // Si le nombre tiré est superieur à 70 le monstre passe son tour
             this.monstre.passeTour()
         }
         println("\u001b[0m")
-        for (elt in monstre.inventaire){
+        for (elt in monstre.inventaire) {
             if (elt is item.Potions)
-                if (monstre.pointDeVie < monstre.pointDeVieMax/2){
-                    val d = TirageDes(1,10)
+                if (monstre.pointDeVie < monstre.pointDeVieMax / 2) {
+                    val d = TirageDes(1, 10)
                     val tirage = d.lance()
                     if (tirage == 1) {
                         elt.utiliser(monstre)

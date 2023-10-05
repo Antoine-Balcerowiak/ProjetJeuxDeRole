@@ -1,11 +1,16 @@
 package jeu
 
+import Soin
 import item.*
+import kamehameha
 import personnage.Guerrier
 import personnage.Mage
 import personnage.Personnage
 import personnage.Voleur
 import projectionAcide
+import tornadeDeFeu
+import invocationArmure
+import invocationArme
 
 
 class Jeu(monstres: List<Personnage>) {
@@ -55,68 +60,82 @@ class Jeu(monstres: List<Personnage>) {
         var defense = 0
         var endurance = 0
         var vitesse = 0
-        var choix: Int
+        var choix: String
         var stats = 0
-        do {
-            println("point restant: $points")
-            println("Stat : ")
-            println("1. attaque ($attaque) : ")
-            println("2. defense ($defense) : ")
-            println("3. endurance ($endurance) : ")
-            println("4. vitesse ($vitesse) : ")
-            println("5. terminer ")
-            print("choix : ")
-            choix = readln().toInt()
 
-            if (choix == 1) { // augmentation stat attaque
-                print("stats attaque : ")
-                stats = readln().toInt()
-                while (stats > points) {
-                    println("stat trop élevé")
+            do {
+                println("point restant: $points")
+                println("Stat : ")
+                println("1. attaque ($attaque) : ")
+                println("2. defense ($defense) : ")
+                println("3. endurance ($endurance) : ")
+                println("4. vitesse ($vitesse) : ")
+                println("5. terminer ")
+                print("choix : ")
+                choix = readln()
+                while (choix !in ("1".."5")) {
+                    println("point restant: $points")
+                    println("Stat : ")
+                    println("1. attaque ($attaque) : ")
+                    println("2. defense ($defense) : ")
+                    println("3. endurance ($endurance) : ")
+                    println("4. vitesse ($vitesse) : ")
+                    println("5. terminer ")
+                    print("choix : ")
+                    choix = readln()
+                }
+
+                if (choix == "1") { // augmentation stat attaque
                     print("stats attaque : ")
                     stats = readln().toInt()
+                    while (stats > points) {
+                        println("stat trop élevé")
+                        print("stats attaque : ")
+                        stats = readln().toInt()
+                    }
+                    attaque += stats
+                    points -= stats
                 }
-                attaque += stats
-                points -= stats
-            }
 
-            if (choix == 2) { // augmentation stat defense
-                print("stats defense : ")
-                stats = readln().toInt()
-                while (stats > points) {
-                    println("stat trop élevé")
+                if (choix == "2") { // augmentation stat defense
                     print("stats defense : ")
                     stats = readln().toInt()
+                    while (stats > points) {
+                        println("stat trop élevé")
+                        print("stats defense : ")
+                        stats = readln().toInt()
+                    }
+                    defense += stats
+                    points -= stats
                 }
-                defense += stats
-                points -= stats
-            }
 
-            if (choix == 3) { // augmentation stat endurance
-                stats = readln().toInt()
-                print("stats endurance : ")
-                while (stats > points) {
-                    println("stat trop élevé")
-                    print("stats endurance : ")
+                if (choix == "3") { // augmentation stat endurance
                     stats = readln().toInt()
+                    print("stats endurance : ")
+                    while (stats > points) {
+                        println("stat trop élevé")
+                        print("stats endurance : ")
+                        stats = readln().toInt()
+                    }
+                    endurance += stats
+                    points -= stats
                 }
-                endurance += stats
-                points -= stats
-            }
 
-            if (choix == 4) { // augmentation stat vitesse
-                print("stats vitesse : ")
-                stats = readln().toInt()
-                while (stats > points) {
-                    println("stat trop élevé")
+                if (choix == "4") { // augmentation stat vitesse
                     print("stats vitesse : ")
                     stats = readln().toInt()
+                    while (stats > points) {
+                        println("stat trop élevé")
+                        print("stats vitesse : ")
+                        stats = readln().toInt()
+                    }
+                    vitesse += stats
+                    points -= stats
                 }
-                vitesse += stats
-                points -= stats
-            }
 
-        } while (choix != 5)
+            } while (choix != "5")
+
+
         val pdv = 100 + (endurance * 10)
         val qualiteCommun = Qualite("commun", 0, "\u001B[32m")
         val qualiteRare = Qualite("rare", 1, couleur = "\u001B[34m")
@@ -127,17 +146,24 @@ class Jeu(monstres: List<Personnage>) {
         println("1. Guerrier")
         println("2. Voleur")
         println("3. Mage")
-        val classe = readln().toInt()
+        var classe = readln()
+        while (classe !in ("1".."3")) {
+            println("Choix de la classe: ")
+            println("1. Guerrier")
+            println("2. Voleur")
+            println("3. Mage")
+            classe = readln()
+        }
 
         var hero=Personnage( nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null)
-        if (classe == 1)
+        if (classe == "1")
              hero = Guerrier(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null, armeSecondaire = null)
 
-        else if (classe == 2)
+        else if (classe == "2")
              hero = Voleur(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null)
 
-        else if (classe == 3)
-             hero = Mage(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null, grimoire = mutableListOf(projectionAcide))
+        else if (classe == "3")
+             hero = Mage(nom, 3000, 3000, attaque, defense, endurance, vitesse, arme = null , armure = null, grimoire = mutableListOf(projectionAcide ,kamehameha ,tornadeDeFeu ,Soin , invocationArme, invocationArmure))
 
 
         this.joueur = hero

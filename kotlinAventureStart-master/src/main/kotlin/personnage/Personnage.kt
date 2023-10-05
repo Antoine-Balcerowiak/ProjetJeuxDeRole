@@ -76,7 +76,7 @@ open class Personnage(
          if (arme != null) {
              val degats = this.arme!!.calculDegats() + this.attaque / 2
              adversaire.pointDeVie -= degats
-             println("$nom attaque ${adversaire.nom} avec une attaque de base et inflige $degats points de dégâts.")
+             println("$nom attaque ${adversaire.nom} avec ${arme!!.nom} et inflige $degats points de dégâts.")
          }
          else {
              var degats = this.attaque / 2
@@ -110,28 +110,49 @@ open class Personnage(
     }
 
     open fun equipe(arme: Armes) {
-        if (arme in this.inventaire && arme is Armes)
+        if (arme in this.inventaire)
             this.arme = arme
         println("${this.nom} equipe ${this.arme!!.nom}")
     }
 
     open fun equipe(armure:Armures) {
-        if (armure in this.inventaire && armure is Armures)
+        if (armure in this.inventaire )
             this.armure = armure
         println("${this.nom} equipe ${this.armure!!.nom}")
     }
 
+    /**
+     * @param
+     * @return
+     * @author
+     */
     fun selctionInventaire (monstre:Personnage):Boolean {
-        println("Selectionner un item : ")
-        val selection = readln()
-        if(selection=="0"){
-            return  false;
+
+        var selection :String
+        val taille =this.inventaire.size.toString()
+        var indexValide = true;
+        var item:Item? = null
+        do
+         {
+            println("Selectionner un item : ")
+            selection = readln()
+            val indexItem=selection.toInt()
+            try {
+                item = this.inventaire[indexItem]
+                indexValide=true
+            }
+            catch (erreur:Exception){
+                indexValide=false
+            }
+
         }
-        val indexItem=selection.toInt()
-        val item = this.inventaire[indexItem]
+        while (selection !in ("0"..taille) || !indexValide)
+        if(selection=="0"){
+            return  false
+        }
+
+
         var actionValide = false
-
-
 
         if (item is Bombe) {
             var cible = monstre
@@ -152,7 +173,7 @@ open class Personnage(
             }
         }
         else {
-            item.utiliser(this)
+            item?.utiliser(this)
         }
         return actionValide;
 

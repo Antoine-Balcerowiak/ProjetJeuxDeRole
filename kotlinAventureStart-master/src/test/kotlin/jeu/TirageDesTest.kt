@@ -26,4 +26,9 @@ internal class TirageDesTest {
         Assertions.assertNotNull("machin")
 
     }
+    @Test
+    fun test(){
+        val a="56"
+        Assertions.assertTrue(a in ("1".."9"))
+    }
 }

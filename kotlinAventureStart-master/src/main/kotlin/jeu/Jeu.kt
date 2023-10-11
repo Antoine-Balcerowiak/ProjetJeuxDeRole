@@ -50,7 +50,7 @@ class Jeu(monstres: List<Personnage>) {
      *
      */
     fun creerPersonnage(): Personnage {
-        println("Création votre personnage:")
+        println("\nCréation votre personnage:")
         // TODO Mission 1.1
         print("Saisir le nom du personnage : ")
         val nom = readln()
@@ -137,10 +137,10 @@ class Jeu(monstres: List<Personnage>) {
 
 
         val pdv = 100 + (endurance * 10)
-        val qualiteCommun = Qualite("commun", 0, "\u001B[32m")
-        val qualiteRare = Qualite("rare", 1, couleur = "\u001B[34m")
-        val qualiteEpic = Qualite("epic", 2, "\u001B[35m")
-        val qualiteLegendaire = Qualite("legendaire", 3, "\u001B[33m")
+            val qualiteCommun = Qualite("commun", 0, "\u001B[32m")
+            val qualiteRare = Qualite("rare", 1, couleur = "\u001B[34m")
+            val qualiteEpic = Qualite("epic", 2, "\u001B[35m")
+            val qualiteLegendaire = Qualite("legendaire", 3, "\u001B[33m")
 
         println("Choix de la classe: ")
         println("1. Guerrier")

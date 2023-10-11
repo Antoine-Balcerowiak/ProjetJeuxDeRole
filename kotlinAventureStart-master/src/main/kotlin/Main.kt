@@ -15,14 +15,14 @@ val qualiteLegendaire = Qualite("legendaire", 3, "\u001B[33m")
 val shhhhhhhuuuuut = Armes(
     "shhhhhhhuuuuut",
     "tire des balles silencieuses",
-    TypeArme(3, 50, 2, 2),
+    TypeArme("Gun",3, 50, 2, 2),
     qualiteLegendaire,
 )
 
 val epee_dophile = Armes(
     name = "l'Epee d'ophile",
     description = "l'epee preféré de tk , norman et amaru",
-    type = TypeArme(78, 5000000, 45, 1),
+    type = TypeArme("Epee tres longue", 78, 5000000, 45, 1),
     qualiteLegendaire,
 )
 
@@ -30,14 +30,14 @@ val enma = Armes(
     "Enma",
     description = "Enma est un Meito ayant appartenu à Kozuki Oden, qui l'utilisait de paire avec un autre Meito, Ame no Habakiri. Kozuki Hiyori l'a hérité de son père et c'est le katana qui a donné sa seule cicatrice à Kaido,[2] d'abord avec Oden puis avec Zoro.\n" +
             "L'épée a été forgée par Shimotsuki Kozaburo.[3] Hiyori l'a donné à Zoro en échange du Shusui.[2]",
-    TypeArme(1,100,13,3),
+    TypeArme("Meito",1,100,13,3),
     qualiteLegendaire,
 )
 
 val ameNoHabakiri = Armes(
     "天羽々斬",
     description = "Meito ayant appartenu à Kozuki Oden, qui l'utilisait avec un autre Meito, Enma.",
-    TypeArme(1,110,15,2),
+    TypeArme("Meito",1,110,15,2),
     qualiteLegendaire
 )
 
@@ -134,21 +134,21 @@ val invocationArme = Sort ("Invocation d'arme"){ caster, cible ->
     var arme : Armes
     if (resultat<5){
         qualite = qualiteCommun
-        arme = Armes("Curdent","Inutile pas de chance TOI", TypeArme(1,10,2,9),qualite)
+        arme = Armes("Curdent","Inutile pas de chance TOI", TypeArme("Pique",1,10,2,9),qualite)
     }
     else if (resultat<10){
         qualite = qualiteRare
-        arme = Armes("Epee en bois","Arme vraiiiiiment nuuul", TypeArme(1,20,3,7),qualite)
+        arme = Armes("Epee en bois","Arme vraiiiiiment nuuul", TypeArme("Epee longue",1,20,3,7),qualite)
 
     }
     else if (resultat<15){
         qualite = qualiteEpic
-        arme = Armes("Eden","L'épee d'Eden", TypeArme(3,15,5,5),qualite)
+        arme = Armes("Eden","L'épee d'Eden", TypeArme("Epee magique",3,15,5,5),qualite)
 
     }
     else {
         qualite = qualiteLegendaire
-        arme = Armes("Yoru","Un sabre qui fait partie des Sabres les plus puissants au monde.", TypeArme(5,25,10,3),qualite)
+        arme = Armes("Yoru","Un sabre qui fait partie des Sabres les plus puissants au monde.", TypeArme("sabre",5,25,10,3),qualite)
     }
     cible.inventaire.add(arme)
     if (arme in cible.inventaire) {
@@ -209,7 +209,7 @@ fun main(args: Array<String>) {
             Armes(
                 "shhhhhhhuuuuut",
         "tire des balles silencieuses",
-                TypeArme(3, 50, 2, 2),
+                TypeArme("Gun",3, 50, 2, 2),
                 qualiteLegendaire,
                 )
         )
@@ -229,7 +229,7 @@ fun main(args: Array<String>) {
     )
 
     val Zoro = Personnage(
-        " Roronoa Zoro le nul",
+        " Roronoa Zoro ",
         pointDeVie = 100000,
         pointDeVieMax = 100000,
         attaque = 100000,
@@ -253,13 +253,22 @@ fun main(args: Array<String>) {
         armure= antiPolice,
         )
 
+    /*print("Prologue\n" +
+            "\n" +
+            "Au-delà des montagnes écarlates, dans les terres maudites d'Azrath, se trouvent des légendes qui effraient même les plus braves. \n" +
+            "Des monstres que même le ciel n'ose affronter, et des ombres dont la simple mention glace le sang. \n" )
+    print(  "\nLa légende raconte que quatre créatures puissantes, autrefois des héros, ont été corrompues par le pouvoir du cristal noir." +
+            "\nCes quatre êtres, maintenant méchants, cherchent à conquérir les terres de l'Est et à instaurer un règne de terreur. \n")
 
+*/
+    val gpt= GPTService()
 
 
 
     // TODO Intermission 1 Ajouter d'autres monstres
     //On ajoute les monstres a la liste de monstres du jeu
-    val jeu = Jeu(listOf( gobelin,destructor,Zoro, cyclope,gobelin))
+    val jeu = Jeu(listOf( gobelin,cyclope,Zoro,destructor,))
     //Lancement du jeu
+    var texte = gpt.fetchHistoire("cree une histoire en utilisant le ${cyclope.nom} qui est méchant")
     jeu.lancerCombat()
 }

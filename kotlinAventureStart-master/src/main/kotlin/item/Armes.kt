@@ -11,6 +11,13 @@ class Armes (
     val qualite : Qualite,
 
 ):Item(name,description){
+
+
+    /**
+     * méthode qui calcul les degats que l'arme infligera
+     * @return les dégats
+     * @author Luca
+     */
     fun calculDegats():Int{
         var desDegat = TirageDes(this.type.nombreDes,this.type.valeurDeMax)
         var desCrit = TirageDes(1,20)

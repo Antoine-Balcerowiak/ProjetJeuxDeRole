@@ -10,6 +10,11 @@ class Bombe constructor(
 ):Item(nom,description){
 
 
+    /**
+     * méthode qui calcul les degats que la bombe infligera
+     * @return les dégats
+     * @author Antoine
+     */
     override fun utiliser(cible : Personnage){
         var protec = 0
         val des = jeu.TirageDes(nombreDeDes , maxDe)

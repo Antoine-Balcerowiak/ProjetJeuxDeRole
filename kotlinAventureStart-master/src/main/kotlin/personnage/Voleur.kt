@@ -17,30 +17,39 @@ class Voleur (
     arme : Armes?
     ):Personnage(nom,pointDeVie,pointDeVieMax,attaque,defense,endurance,vitesse,armure=null,arme=null,)
 {
-        fun volerItem(cible: Personnage):Boolean { // Fonction pour voler un item à l'adversaire
-            if (cible.inventaire.isNotEmpty()) {
-                val de = TirageDes(0,cible.inventaire.size-1)
-                var voler :Item
-                val tirage = de.lance() // Lance un de pour obtnir un nombre aléatoire qui correspond aux index des items de l'adversaire
-                var item = cible.inventaire[tirage]
-                    if (item.equals(cible.arme)) { // Si notre tirage correspond à l'arme principal de l'adversaire alors l'arme de l'adversaire devient null
-                    cible.arme = null
-                }
-                else if (item.equals(cible.armure)) {// Pareil que l'arme
-                    cible.armure = null
-                }
+    /**
+     * Cette fonction permet au personnage de voler un item à l'adversaire (si l'adversaire a un inventaire).
+     *
+     * @param cible Le personnage adversaire.
+     * @return True si l'item a été volé, sinon False.
+     * @author Joshua
+     */
+    fun volerItem(cible: Personnage): Boolean {
+        // Vérifie si l'inventaire de l'adversaire n'est pas vide
+        if (cible.inventaire.isNotEmpty()) {
+            val de = TirageDes(0, cible.inventaire.size - 1)
+            var voler: Item
+            val tirage = de.lance() // Lance un dé pour obtenir un nombre aléatoire correspondant à l'index d'un item de l'adversaire
+            var item = cible.inventaire[tirage]
 
-                voler = cible.inventaire[tirage]
-                this.inventaire.add(cible.inventaire[tirage]) // Ajoute l'item volé à notre inventaire
-                cible.inventaire.remove(cible.inventaire[tirage])// Retire l'item de l'inventaire de l'adversaire
+            // Si l'item tiré est l'arme principale de l'adversaire, déposez l'arme de l'adversaire
+            if (item.equals(cible.arme)) {
+                cible.arme = null
+            } else if (item.equals(cible.armure)) {
+                cible.armure = null
+            }
 
-                println("${voler} Volé")
-                return true
-            }
-            else {
-                println("Inventaire de la cible VIDE")
-                return false
-            }
+            voler = cible.inventaire[tirage]
+            this.inventaire.add(cible.inventaire[tirage]) // Ajoute l'item volé à notre inventaire
+            cible.inventaire.remove(cible.inventaire[tirage]) // Retire l'item de l'inventaire de l'adversaire
+
+            println("$voler Volé")
+            return true
+        } else {
+            println("Inventaire de la cible VIDE")
+            return false
         }
-
     }
+
+
+}

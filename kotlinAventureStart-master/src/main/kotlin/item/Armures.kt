@@ -20,7 +20,6 @@ class Armures(
 
     override fun utiliser(cible:Personnage) {
         cible.equipe(this)
-
     }
 
 

@@ -9,6 +9,5 @@ class Potions constructor(
 
      override fun utiliser (cible: Personnage){
          cible.boirePotion()
-
     }
 }

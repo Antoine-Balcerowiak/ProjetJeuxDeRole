@@ -16,16 +16,7 @@ class Guerrier(
     arme: Armes?,
     var armeSecondaire: Armes?,
 ) : Personnage(nom, pointDeVie, pointDeVieMax, attaque, defense, endurance, vitesse, armure = null, arme = null) {
-//     fun afficherArmes(monstre: Personnage): Armes {
-//          println("Les armes de ${this.nom}")
-//          for (i in 1..this.inventaire.size - 1) {
-//               if (i is Armes) {
-//                    println("$i. ${this.inventaire[i]}")
-//               }
-//
-//
-//          }
-//     }
+
 
     /**
      * Cette fonction permet d'équiper une arme principale ou secondaire.

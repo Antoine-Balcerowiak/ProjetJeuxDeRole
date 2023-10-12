@@ -142,6 +142,18 @@ open class Personnage(
         // Affiche les points de vie du personnage
         println("PV : ${this.pointDeVie}")
 
+        // Affiche l'attaque du personnage
+        println("Attaque : ${this.attaque}")
+
+        // Affiche la défense du personnage
+        println("Défense : ${this.defense}")
+
+        // Affiche l'endurance du personnage
+        println("Endurance : ${this.endurance}")
+
+        // Affiche la vitesse du personnage
+        println("Vitesse : ${this.vitesse}")
+
         // Si le personnage est un Guerrier, affiche son arme secondaire
         if (this is Guerrier) {
             println("Arme secondaire : ${this.armeSecondaire}")

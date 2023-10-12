@@ -1,3 +1,4 @@
+import build.BardService2
 import item.*
 import jeu.Jeu
 import jeu.TirageDes
@@ -260,15 +261,18 @@ fun main(args: Array<String>) {
     print(  "\nLa légende raconte que quatre créatures puissantes, autrefois des héros, ont été corrompues par le pouvoir du cristal noir." +
             "\nCes quatre êtres, maintenant méchants, cherchent à conquérir les terres de l'Est et à instaurer un règne de terreur. \n")
 
-*/
+
     val gpt= GPTService()
+    var texte = gpt.fetchHistoire("cree une histoire en utilisant le ${cyclope.nom} qui est méchant")
+    */
 
-
+    var bard = BardService2()
+    var texte = bard.fetchHistoire("fait 1+1")
 
     // TODO Intermission 1 Ajouter d'autres monstres
     //On ajoute les monstres a la liste de monstres du jeu
     val jeu = Jeu(listOf( gobelin,cyclope,Zoro,destructor,))
     //Lancement du jeu
-    var texte = gpt.fetchHistoire("cree une histoire en utilisant le ${cyclope.nom} qui est méchant")
+
     jeu.lancerCombat()
 }

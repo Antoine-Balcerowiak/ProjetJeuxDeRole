@@ -386,13 +386,15 @@ fun boirePotion() {
 
 Tout au long de ce projet, on a pu rencontrer un problème :
 
-- les droits avec Code with me
+- les droits avec Code with me, car seul l'hote possedait les droits pour réaliser des tests
 
 
 == Conclusion
 
-Pour conclure, ce projet nous a permis de découvrir un nouveau language (Kotlin)
+Pour conclure, ce projet a apporté que des points positifs à notre formation car il nous a permis de découvrir un nouveau language (Kotlin)
 et de nous améliorer dans la Programmation Orientée Objet (POO).
+Si le projet était à refaire, nous nous concentrerons en premier sur la creation de class. 
+Pour améliorer le projet, la création d'un mode un contre un pourrait améliorer le projet.
 
 == Lien
 

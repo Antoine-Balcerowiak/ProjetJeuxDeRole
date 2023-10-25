@@ -25,7 +25,7 @@ personnage.
 
 == Introduction
 Pour démarrer le projet, on a récupérer les ressources nécessaire et on s'est répartie
-les différentes tâches en 3.
+les différentes tâches pour 3 cependant tout le monde a pu toucher au code de chaque mission car nous nous aidions tout au long du projet
 
 == Rendu
 
